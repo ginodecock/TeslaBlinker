@@ -1,0 +1,7 @@
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:68:13:send_gpio_pulses	24	static
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:77:20:detect_gesture	32	static
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:159:13:process_gestures	24	static
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:177:6:MX_TOF_Init	8	static
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:185:6:MX_TOF_Process	8	static
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:190:13:MX_53L7A1_ThresholdDetection_Init	8	static
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:218:13:MX_53L7A1_ThresholdDetection_Process	24	static
