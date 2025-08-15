@@ -1,14 +1,3 @@
----
-pagetitle: README
-lang: en
----
-
-::: {.row}
-
-::: {.col-sm-12 .col-lg-11}
-::: {.collapse}
-<div>
-
 ### <b>TeslaBlinker description</b>
 
 This application uses the VL53L7cx TOF sensor to control the blinker lights in a Tesla model 3. A UP / DOWN gesture results in a single / double pulse that can be used to drive the blinker lights.
