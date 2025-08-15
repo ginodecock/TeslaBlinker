@@ -28,7 +28,7 @@ extern "C" {
 
 /* === Gesture Detection Configuration === */
 #define GESTURE_START_DISTANCE_MM 190
-#define GESTURE_CONSECUTIVE_ZONES 1
+#define GESTURE_CONSECUTIVE_ZONES 2
 #define GPIO_PULSE_PIN            GPIO_PIN_5
 #define GPIO_PULSE_PORT           GPIOA
 #define PULSE_DELAY_MS            100
@@ -39,7 +39,7 @@ extern "C" {
 #define RANGING_FREQUENCY (10U) /* Ranging frequency Hz (shall be consistent with TimingBudget value) */
 
 #define LOW_THRESHOLD  (100U)
-#define HIGH_THRESHOLD (230U)
+#define HIGH_THRESHOLD (330U)
 
 /* Private variables ---------------------------------------------------------*/
 static RANGING_SENSOR_Capabilities_t Cap;
