@@ -27,18 +27,15 @@ extern "C" {
 
 
 /* === Gesture Detection Configuration === */
-#define GESTURE_START_DISTANCE_MM 190
+#define GESTURE_START_DISTANCE_MM 195
 #define GESTURE_CONSECUTIVE_ZONES 1
 #define PULSE_DELAY_MS            100
 #define NO_DETECTION_TIMEOUT_MS   500  // .5 second timeout
-/* Onboard LED definition for Nucleo-F401 */
-#define LED1_PIN   GPIO_PIN_5
-#define LED1_PORT  GPIOA
 #define TIMING_BUDGET (30U) /* 5 ms < TimingBudget < 100 ms */
-#define RANGING_FREQUENCY (10U) /* Ranging frequency Hz (shall be consistent with TimingBudget value) */
+#define RANGING_FREQUENCY (20U) /* Ranging frequency Hz (shall be consistent with TimingBudget value) */
 
 #define LOW_THRESHOLD  (100U)
-#define HIGH_THRESHOLD (190U)
+#define HIGH_THRESHOLD (195U)
 
 /* Private variables ---------------------------------------------------------*/
 static RANGING_SENSOR_Capabilities_t Cap;
@@ -70,9 +67,9 @@ static uint8_t gesture_reported = 0;
 
 static void send_gpio_pulses(uint8_t count) {
   for (uint8_t i = 0; i < count; i++) {
-    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,GPIO_PIN_RESET );
     HAL_Delay(PULSE_DELAY_MS);
-    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,GPIO_PIN_SET );
     HAL_Delay(PULSE_DELAY_MS);
   }
 }
@@ -118,18 +115,17 @@ static GestureType detect_gesture(RANGING_SENSOR_Result_t *Result) {
                         if (row_change < 0) {
                             detected_direction = GESTURE_UP;
                             printf("[Gesture] Detected upward movement (from row %d to row %d)\n\r",last_row, active_row);
-                        	HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_SET);//BSP_LED_On(LED1);
+                        	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);//BSP_LED_On(LED1);
                             send_gpio_pulses(2); // Right blinker
-                            HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_RESET);//BSP_LED_Off(LED1);
+                            HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);//BSP_LED_Off(LED1);
 
                         } else if (row_change > 0) {
                             detected_direction = GESTURE_DOWN;
                             printf("[Gesture] Detected downward movement (from row %d to row %d)\n\r",last_row, active_row);
-                        	HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_SET);//BSP_LED_On(LED1);
+                        	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,GPIO_PIN_RESET );//BSP_LED_On(LED1);
                             send_gpio_pulses(1); // Left blinker
-                            HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_RESET);//BSP_LED_Off(LED1);
+                            HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,GPIO_PIN_SET );//BSP_LED_Off(LED1);
                         }
-
                         gesture_reported = 1; // Lock further detection
                     }
                 }
@@ -215,12 +211,14 @@ static void MX_53L7A1_ThresholdDetection_Init(void)
   HAL_GPIO_WritePin(VL53L7A1_PWR_EN_C_PORT, VL53L7A1_PWR_EN_C_PIN, GPIO_PIN_SET);
   HAL_Delay(2);*/
   HAL_GPIO_WritePin(VL53L7A1_LPn_C_PORT, VL53L7A1_LPn_C_PIN, GPIO_PIN_RESET);
-  HAL_Delay(4);
+  HAL_Delay(2);
   HAL_GPIO_WritePin(VL53L7A1_LPn_C_PORT, VL53L7A1_LPn_C_PIN, GPIO_PIN_SET);
-  HAL_Delay(4);
+  HAL_Delay(2);
 
   printf("\033[2H\033[2J");
+
   printf("Control Tesla Blinker\n\r");
+  HAL_Delay(200);
   printf("Sensor initialization...\n\r");
 
   status = VL53L7A1_RANGING_SENSOR_Init(VL53L7A1_DEV_CENTER);
@@ -228,6 +226,9 @@ static void MX_53L7A1_ThresholdDetection_Init(void)
   if (status != BSP_ERROR_NONE)
   {
     printf("VL53L7A1_RANGING_SENSOR_Init failed\n\r");
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,GPIO_PIN_RESET );//BSP_LED_On(LED1);
+    send_gpio_pulses(2); // Right blinker
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,GPIO_PIN_SET );//BSP_LED_Off(LED1);
     while (1);
   }
 

@@ -1,4 +1,4 @@
 Y:/VM/stm-workspace/TeslaBlinker/Src/main.c:65:5:main	1
-Y:/VM/stm-workspace/TeslaBlinker/Src/main.c:111:6:SystemClock_Config	3
-Y:/VM/stm-workspace/TeslaBlinker/Src/main.c:158:13:MX_GPIO_Init	1
-Y:/VM/stm-workspace/TeslaBlinker/Src/main.c:221:6:Error_Handler	1
+Y:/VM/stm-workspace/TeslaBlinker/Src/main.c:112:6:SystemClock_Config	3
+Y:/VM/stm-workspace/TeslaBlinker/Src/main.c:159:13:MX_GPIO_Init	1
+Y:/VM/stm-workspace/TeslaBlinker/Src/main.c:222:6:Error_Handler	1
