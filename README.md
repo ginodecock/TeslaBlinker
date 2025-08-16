@@ -4,6 +4,8 @@ This application uses the VL53L7cx TOF sensor to control the blinker lights in a
 
 ![blinker](https://github.com/user-attachments/assets/9deb0a11-a677-45ee-b117-7e86621f29aa)
 
+![theelektronics](https://github.com/user-attachments/assets/da919bb6-c1d6-4474-89f2-2d382df4f3d4)
+
 The application uses the following default serial settings:
 
   - Baud Rate: 460800
