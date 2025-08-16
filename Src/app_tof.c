@@ -28,8 +28,9 @@ extern "C" {
 
 /* === Gesture Detection Configuration === */
 #define GESTURE_START_DISTANCE_MM 190
-#define GESTURE_CONSECUTIVE_ZONES 2
+#define GESTURE_CONSECUTIVE_ZONES 1
 #define PULSE_DELAY_MS            100
+#define NO_DETECTION_TIMEOUT_MS   500  // .5 second timeout
 /* Onboard LED definition for Nucleo-F401 */
 #define LED1_PIN   GPIO_PIN_5
 #define LED1_PORT  GPIOA
@@ -37,7 +38,7 @@ extern "C" {
 #define RANGING_FREQUENCY (10U) /* Ranging frequency Hz (shall be consistent with TimingBudget value) */
 
 #define LOW_THRESHOLD  (100U)
-#define HIGH_THRESHOLD (330U)
+#define HIGH_THRESHOLD (190U)
 
 /* Private variables ---------------------------------------------------------*/
 static RANGING_SENSOR_Capabilities_t Cap;
@@ -45,6 +46,10 @@ static RANGING_SENSOR_ProfileConfig_t Profile;
 static RANGING_SENSOR_Result_t Result;
 static int32_t status = 0;
 volatile uint8_t ToF_EventDetected = 0;
+
+// Timeout tracking variables
+static uint32_t last_detection_time = 0;
+static uint8_t no_detection_reported = 0;
 
 typedef enum {
   GESTURE_NONE,
@@ -112,12 +117,17 @@ static GestureType detect_gesture(RANGING_SENSOR_Result_t *Result) {
                     if (abs(total_change) >= GESTURE_CONSECUTIVE_ZONES) {
                         if (row_change < 0) {
                             detected_direction = GESTURE_UP;
-                            printf("[Gesture] Detected upward movement (from row %d to row %d)\n\r",
-                                last_row, active_row);
+                            printf("[Gesture] Detected upward movement (from row %d to row %d)\n\r",last_row, active_row);
+                        	HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_SET);//BSP_LED_On(LED1);
+                            send_gpio_pulses(2); // Right blinker
+                            HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_RESET);//BSP_LED_Off(LED1);
+
                         } else if (row_change > 0) {
                             detected_direction = GESTURE_DOWN;
-                            printf("[Gesture] Detected downward movement (from row %d to row %d)\n\r",
-                                last_row, active_row);
+                            printf("[Gesture] Detected downward movement (from row %d to row %d)\n\r",last_row, active_row);
+                        	HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_SET);//BSP_LED_On(LED1);
+                            send_gpio_pulses(1); // Left blinker
+                            HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_RESET);//BSP_LED_Off(LED1);
                         }
 
                         gesture_reported = 1; // Lock further detection
@@ -158,16 +168,25 @@ static void process_gestures(RANGING_SENSOR_Result_t *Result) {
   GestureType g = detect_gesture(Result);
   if (g == GESTURE_UP) {
 	printf("Upward gesture: 2 GPIO pulses for right blinker\n\r");
-	HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_SET);//BSP_LED_On(LED1);
-    send_gpio_pulses(2); // Right blinker
-    HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_RESET);//BSP_LED_Off(LED1);
   } else if (g == GESTURE_DOWN) {
 	printf("Downward gesture: 1 GPIO pulse for left blinker\n\r");
-	HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_SET);//BSP_LED_On(LED1);
-    send_gpio_pulses(1); // Left blinker
-    HAL_GPIO_WritePin(LED1_PORT, LED1_PIN, GPIO_PIN_RESET);//BSP_LED_Off(LED1);
   }
 }
+
+// Function to check for no detection timeout
+static void check_no_detection_timeout(void) {
+    uint32_t current_time = HAL_GetTick();
+
+    // Check if timeout has elapsed since last detection
+    if ((current_time - last_detection_time) >= NO_DETECTION_TIMEOUT_MS) {
+        if (!no_detection_reported) {
+            printf("no detection\n\r");
+            gesture_state = GESTURE_STATE_WAIT_ENTRY;
+            no_detection_reported = 1;  // Prevent spam
+        }
+    }
+}
+
 static void MX_53L7A1_ThresholdDetection_Init(void);
 static void MX_53L7A1_ThresholdDetection_Process(void);
 //static void print_result(RANGING_SENSOR_Result_t *Result);
@@ -211,6 +230,10 @@ static void MX_53L7A1_ThresholdDetection_Init(void)
     printf("VL53L7A1_RANGING_SENSOR_Init failed\n\r");
     while (1);
   }
+
+  // Initialize timeout tracking
+  last_detection_time = HAL_GetTick();
+  no_detection_reported = 0;
 }
 
 static void MX_53L7A1_ThresholdDetection_Process(void)
@@ -259,11 +282,23 @@ static void MX_53L7A1_ThresholdDetection_Process(void)
     {
       ToF_EventDetected = 0;
 
+      // Update detection timestamp and reset no detection flag
+      last_detection_time = HAL_GetTick();
+      no_detection_reported = 0;
+
       status = VL53L7A1_RANGING_SENSOR_GetDistance(VL53L7A1_DEV_CENTER, &Result);
       if (status == BSP_ERROR_NONE)
       {
         process_gestures(&Result);
       }
+    }
+    else
+    {
+      // Check for no detection timeout
+      check_no_detection_timeout();
+
+      // Small delay to prevent excessive CPU usage
+      HAL_Delay(10);
     }
   }
 }

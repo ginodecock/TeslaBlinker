@@ -1,7 +1,8 @@
-Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:66:13:send_gpio_pulses	2
-Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:75:20:detect_gesture	16
-Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:157:13:process_gestures	3
-Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:175:6:MX_TOF_Init	1
-Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:183:6:MX_TOF_Process	1
-Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:188:13:MX_53L7A1_ThresholdDetection_Init	2
-Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:216:13:MX_53L7A1_ThresholdDetection_Process	4
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:71:13:send_gpio_pulses	2
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:80:20:detect_gesture	16
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:167:13:process_gestures	3
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:177:13:check_no_detection_timeout	3
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:194:6:MX_TOF_Init	1
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:202:6:MX_TOF_Process	1
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:207:13:MX_53L7A1_ThresholdDetection_Init	2
+Y:/VM/stm-workspace/TeslaBlinker/Src/app_tof.c:239:13:MX_53L7A1_ThresholdDetection_Process	4
