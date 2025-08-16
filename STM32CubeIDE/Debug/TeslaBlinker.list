@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_aranges 00000db0  00000000  00000000  000435a8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_str    0008d928  00000000  00000000  00044358  2**0
+ 17 .debug_str    0008d8f8  00000000  00000000  00044358  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_rnglists 00000a7d  00000000  00000000  000d1c80  2**0
+ 18 .debug_rnglists 00000a7d  00000000  00000000  000d1c50  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_macro  000184c9  00000000  00000000  000d26fd  2**0
+ 19 .debug_macro  000184bd  00000000  00000000  000d26cd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  000eabc6  2**0
+ 20 .comment      00000043  00000000  00000000  000eab8a  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00003ebc  00000000  00000000  000eac0c  2**2
+ 21 .debug_frame  00003ebc  00000000  00000000  000eabd0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -547,7 +547,7 @@ static void send_gpio_pulses(uint8_t count) {
  800060a:	2300      	movs	r3, #0
  800060c:	73fb      	strb	r3, [r7, #15]
  800060e:	e012      	b.n	8000636 <send_gpio_pulses+0x36>
-    HAL_GPIO_WritePin(GPIO_PULSE_PORT, GPIO_PULSE_PIN, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
  8000610:	2201      	movs	r2, #1
  8000612:	2120      	movs	r1, #32
  8000614:	480c      	ldr	r0, [pc, #48]	@ (8000648 <send_gpio_pulses+0x48>)
@@ -555,7 +555,7 @@ static void send_gpio_pulses(uint8_t count) {
     HAL_Delay(PULSE_DELAY_MS);
  800061a:	2064      	movs	r0, #100	@ 0x64
  800061c:	f004 f8a6 	bl	800476c <HAL_Delay>
-    HAL_GPIO_WritePin(GPIO_PULSE_PORT, GPIO_PULSE_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
  8000620:	2200      	movs	r2, #0
  8000622:	2120      	movs	r1, #32
  8000624:	4808      	ldr	r0, [pc, #32]	@ (8000648 <send_gpio_pulses+0x48>)

@@ -29,8 +29,6 @@ extern "C" {
 /* === Gesture Detection Configuration === */
 #define GESTURE_START_DISTANCE_MM 190
 #define GESTURE_CONSECUTIVE_ZONES 2
-#define GPIO_PULSE_PIN            GPIO_PIN_5
-#define GPIO_PULSE_PORT           GPIOA
 #define PULSE_DELAY_MS            100
 /* Onboard LED definition for Nucleo-F401 */
 #define LED1_PIN   GPIO_PIN_5
@@ -67,9 +65,9 @@ static uint8_t gesture_reported = 0;
 
 static void send_gpio_pulses(uint8_t count) {
   for (uint8_t i = 0; i < count; i++) {
-    HAL_GPIO_WritePin(GPIO_PULSE_PORT, GPIO_PULSE_PIN, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
     HAL_Delay(PULSE_DELAY_MS);
-    HAL_GPIO_WritePin(GPIO_PULSE_PORT, GPIO_PULSE_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
     HAL_Delay(PULSE_DELAY_MS);
   }
 }

@@ -190,10 +190,5 @@
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/BSP/Components/vl53l7cx/modules/vl53l7cx_plugin_xtalk.c</locationURI>
 		</link>
-		<link>
-			<name>Middlewares/X-CUBE-TOF1/Documentation/LICENSE.txt</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/53L7A1/LICENSE.txt</locationURI>
-		</link>
 	</linkedResources>
 </projectDescription>
