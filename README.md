@@ -7,9 +7,9 @@ This application uses the VL53L7cx TOF sensor to control the blinker lights in a
 ![theelektronics](https://github.com/user-attachments/assets/da919bb6-c1d6-4474-89f2-2d382df4f3d4)
 
 <b>The incar build</b>
-![IMG_6152](https://github.com/user-attachments/assets/c88c2d9b-f609-4bb3-8266-020866e4b3e2)
 
-![IMG_6154](https://github.com/user-attachments/assets/d70f8550-0844-4e47-b021-1d98778bd753)
+![IMG_6154b](https://github.com/user-attachments/assets/fc776640-0011-496e-9683-14ad6b671036)
+![IMG_6152b](https://github.com/user-attachments/assets/e4702c61-bded-45b9-a690-68622e1b46b5)
 
 <b>Demo with gesture</b>
 
