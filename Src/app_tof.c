@@ -27,15 +27,15 @@ extern "C" {
 
 
 /* === Gesture Detection Configuration === */
-#define GESTURE_START_DISTANCE_MM 195
-#define GESTURE_CONSECUTIVE_ZONES 1
+#define GESTURE_START_DISTANCE_MM 185
+#define GESTURE_CONSECUTIVE_ZONES 2
 #define PULSE_DELAY_MS            100
 #define NO_DETECTION_TIMEOUT_MS   500  // .5 second timeout
 #define TIMING_BUDGET (30U) /* 5 ms < TimingBudget < 100 ms */
-#define RANGING_FREQUENCY (20U) /* Ranging frequency Hz (shall be consistent with TimingBudget value) */
+#define RANGING_FREQUENCY (30U) /* Ranging frequency Hz (shall be consistent with TimingBudget value) */
 
 #define LOW_THRESHOLD  (100U)
-#define HIGH_THRESHOLD (195U)
+#define HIGH_THRESHOLD (185U)
 
 /* Private variables ---------------------------------------------------------*/
 static RANGING_SENSOR_Capabilities_t Cap;

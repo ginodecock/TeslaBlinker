@@ -625,7 +625,7 @@ static GestureType detect_gesture(RANGING_SENSOR_Result_t *Result) {
  800068a:	3308      	adds	r3, #8
  800068c:	681b      	ldr	r3, [r3, #0]
         if (Result->ZoneResult[zone].NumberOfTargets > 0 &&
- 800068e:	2bc3      	cmp	r3, #195	@ 0xc3
+ 800068e:	2bb9      	cmp	r3, #185	@ 0xb9
  8000690:	d807      	bhi.n	80006a2 <detect_gesture+0x56>
             active_row = zone / zones_per_line;
  8000692:	7d7a      	ldrb	r2, [r7, #21]
@@ -737,7 +737,7 @@ static GestureType detect_gesture(RANGING_SENSOR_Result_t *Result) {
  8000734:	2b00      	cmp	r3, #0
  8000736:	bfb8      	it	lt
  8000738:	425b      	neglt	r3, r3
- 800073a:	2b00      	cmp	r3, #0
+ 800073a:	2b01      	cmp	r3, #1
  800073c:	dd39      	ble.n	80007b2 <detect_gesture+0x166>
                         if (row_change < 0) {
  800073e:	68fb      	ldr	r3, [r7, #12]
@@ -1158,7 +1158,7 @@ static void MX_53L7A1_ThresholdDetection_Process(void)
  80009dc:	605a      	str	r2, [r3, #4]
   Profile.Frequency = RANGING_FREQUENCY; /* Ranging frequency Hz (shall be consistent with TimingBudget value) */
  80009de:	4b2e      	ldr	r3, [pc, #184]	@ (8000a98 <MX_53L7A1_ThresholdDetection_Process+0xe0>)
- 80009e0:	2214      	movs	r2, #20
+ 80009e0:	221e      	movs	r2, #30
  80009e2:	609a      	str	r2, [r3, #8]
   Profile.EnableAmbient = 0; /* Enable: 1, Disable: 0 */
  80009e4:	4b2c      	ldr	r3, [pc, #176]	@ (8000a98 <MX_53L7A1_ThresholdDetection_Process+0xe0>)
@@ -1183,7 +1183,7 @@ static void MX_53L7A1_ThresholdDetection_Process(void)
  80009fc:	2364      	movs	r3, #100	@ 0x64
  80009fe:	607b      	str	r3, [r7, #4]
   ITConfig.HighThreshold = HIGH_THRESHOLD; /* mm */
- 8000a00:	23c3      	movs	r3, #195	@ 0xc3
+ 8000a00:	23b9      	movs	r3, #185	@ 0xb9
  8000a02:	60bb      	str	r3, [r7, #8]
 
   VL53L7A1_RANGING_SENSOR_ConfigIT(VL53L7A1_DEV_CENTER, &ITConfig);
@@ -1224,7 +1224,7 @@ static void MX_53L7A1_ThresholdDetection_Process(void)
  8000a3a:	481c      	ldr	r0, [pc, #112]	@ (8000aac <MX_53L7A1_ThresholdDetection_Process+0xf4>)
  8000a3c:	f006 fcb2 	bl	80073a4 <iprintf>
   printf("please put a target between %d and %d millimeters from the sensor\n\r",
- 8000a40:	22c3      	movs	r2, #195	@ 0xc3
+ 8000a40:	22b9      	movs	r2, #185	@ 0xb9
  8000a42:	2164      	movs	r1, #100	@ 0x64
  8000a44:	481a      	ldr	r0, [pc, #104]	@ (8000ab0 <MX_53L7A1_ThresholdDetection_Process+0xf8>)
  8000a46:	f006 fcad 	bl	80073a4 <iprintf>
