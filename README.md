@@ -47,9 +47,12 @@ Touch buttons require visual attention and disrupt natural driving flow. TeslaBl
 
 ## 🎥 Demo Videos
 
-- [Basic Gesture Activation](https://cdn.hackaday.io/files/2039078723957088/482703793-1f94c518-6d01-4f9e-af4d-73e38897b722.mp4)  
-- [Real-Time Blinker Control](https://cdn.hackaday.io/files/2039078723957088/482703765-84ad0aca-a5cb-4221-b0f3-957433e6dba5.mp4)  
-- [Subtle Gesture Recognition](https://cdn.hackaday.io/files/2039078723957088/482703737-71a49233-56d5-4ddb-befc-c8cad62d33c4.mp4)  
+- [Basic Gesture Activation](https://github.com/user-attachments/assets/3f844df6-d86f-4fa8-8943-76a7297d0469)  
+
+- [Real-Time Blinker Control](https://github.com/user-attachments/assets/6f33676a-7c70-4880-a525-950e92ba5b38)  
+
+- [Subtle Gesture Recognition](https://github.com/user-attachments/assets/bca40b13-84a1-4f48-908f-f1100396e0e3)  
+
 
 ---
 
@@ -73,6 +76,6 @@ This project is released under the [MIT License](LICENSE).
 
 - Inspired by the need for safer, more intuitive controls in modern EVs
 - Built with STM32, VL53L7CX, and the Testars interface
-- Project page: [Hackaday.io – TeslaBlinker](https://hackaday.io/project/203907-tesla-blinker)
+- Project page: [Elektormagazine tesla-blinker](https://www.elektormagazine.com/labs/tesla-blinker)
 
 
