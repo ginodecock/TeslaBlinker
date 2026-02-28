@@ -95,11 +95,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint32_t last_heartbeat = 0;
   while (1)
   {
     /* USER CODE END WHILE */
 
-  MX_TOF_Process();
+    MX_TOF_Process();
+
+    /* Heartbeat LED every 500ms */
+    if (HAL_GetTick() - last_heartbeat >= 500) {
+      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+      last_heartbeat = HAL_GetTick();
+    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
